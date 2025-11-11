@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kyokushin Karate Training Tracker</title>
+    <style>
+        :root {
+            --primary-color: #d32f2f;
+            --secondary-color: #f5f5f5;
+            --accent-color: #ff9800;
+            --text-color: #333;
+            --border-color: #ddd;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f9f9f9;
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid var(--primary-color);
+        }
+        
+        h1 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            color: #666;
+            font-size: 1.1rem;
+        }
+        
+        .dashboard {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        @media (max-width: 768px) {
+            .dashboard {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+        
+        .card h2 {
+            margin-bottom: 15px;
+            color: var(--primary-color);
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 10px;
+        }
+        
+        .technique-list {
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        
+        .technique-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .technique-item:last-child {
+            border-bottom: none;
+        }
+        
+        .technique-name {
+            font-weight: 500;
+        }
+        
+        .counter {
+            display: flex;
+            align-items: center;
+        }
+        
+        .counter button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .counter span {
+            margin: 0 10px;
+            min-width: 30px;
+            text-align: center;
+            font-weight: bold;
+        }
+        
+        .add-technique {
+            margin-top: 20px;
+        }
+        
+        .add-technique input {
+            padding: 10px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            width: calc(100% - 100px);
+            margin-right: 10px;
+        }
+        
+        .add-technique button {
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .stat-card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            padding: 15px;
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+        
+        .stat-label {
+            color: #666;
+            margin-top: 5px;
+        }
+        
+        .reset-btn {
+            background-color: #f44336;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 20px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Kyokushin Karate Training Tracker</h1>
+            <p class="subtitle">Track your kicks, punches, and blocks during training sessions</p>
+        </header>
+        
+        <div class="dashboard">
+            <div class="card">
+                <h2>Kicks</h2>
+                <div class="technique-list" id="kicks-list">
+                    <!-- Kicks will be populated by JavaScript -->
+                </div>
+                <div class="add-technique">
+                    <input type="text" id="new-kick" placeholder="Add new kick technique">
+                    <button id="add-kick-btn">Add</button>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h2>Punches</h2>
+                <div class="technique-list" id="punches-list">
+                    <!-- Punches will be populated by JavaScript -->
+                </div>
+                <div class="add-technique">
+                    <input type="text" id="new-punch" placeholder="Add new punch technique">
+                    <button id="add-punch-btn">Add</button>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h2>Blocks</h2>
+                <div class="technique-list" id="blocks-list">
+                    <!-- Blocks will be populated by JavaScript -->
+                </div>
+                <div class="add-technique">
+                    <input type="text" id="new-block" placeholder="Add new block technique">
+                    <button id="add-block-btn">Add</button>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h2>Training Statistics</h2>
+                <div class="stats">
+                    <div class="stat-card">
+                        <div class="stat-value" id="total-kicks">0</div>
+                        <div class="stat-label">Total Kicks</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="total-punches">0</div>
+                        <div class="stat-label">Total Punches</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="total-blocks">0</div>
+                        <div class="stat-label">Total Blocks</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="total-techniques">0</div>
+                        <div class="stat-label">All Techniques</div>
+                    </div>
+                </div>
+                <button class="reset-btn" id="reset-btn">Reset All Counters</button>
+            </div>
+        </div>
+        
+        <footer>
+            <p>Kyokushin Karate Training Tracker &copy; 2023</p>
+        </footer>
+    </div>
+
+    <script>
+        // Default Kyokushin techniques
+        const defaultTechniques = {
+            kicks: [
+                "Mae Geri (Front Kick)",
+                "Mawashi Geri (Roundhouse Kick)",
+                "Yoko Geri (Side Kick)",
+                "Ushiro Geri (Back Kick)",
+                "Kansetsu Geri (Low Kick)",
+                "Kakato Geri (Axe Kick)",
+                "Ura Mawashi Geri (Hook Kick)",
+                "Hiza Geri (Knee Strike)"
+            ],
+            punches: [
+                "Oi Zuki (Lunge Punch)",
+                "Gyaku Zuki (Reverse Punch)",
+                "Kizami Zuki (Jab)",
+                "Age Zuki (Rising Punch)",
+                "Yoko Zuki (Side Punch)",
+                "Uraken Uchi (Backfist Strike)",
+                "Tate Zuki (Vertical Punch)",
+                "Kagi Zuki (Hook Punch)"
+            ],
+            blocks: [
+                "Age Uke (Rising Block)",
+                "Soto Uke (Outside Block)",
+                "Uchi Uke (Inside Block)",
+                "Gedan Barai (Downward Block)",
+                "Shuto Uke (Knife Hand Block)",
+                "Kake Uke (Hook Block)",
+                "Morote Uke (Augmented Block)",
+                "Juji Uke (X Block)"
+            ]
+        };
+
+        // Load techniques from localStorage or use defaults
+        let techniques = JSON.parse(localStorage.getItem('kyokushinTechniques')) || defaultTechniques;
+        let counters = JSON.parse(localStorage.getItem('kyokushinCounters')) || {
+            kicks: {},
+            punches: {},
+            blocks: {}
+        };
+
+        // Initialize counters for any new techniques
+        function initializeCounters() {
+            ['kicks', 'punches', 'blocks'].forEach(type => {
+                techniques[type].forEach(technique => {
+                    if (!counters[type][technique]) {
+                        counters[type][technique] = 0;
+                    }
+                });
+            });
+            saveCounters();
+        }
+
+        // Save techniques to localStorage
+        function saveTechniques() {
+            localStorage.setItem('kyokushinTechniques', JSON.stringify(techniques));
+        }
+
+        // Save counters to localStorage
+        function saveCounters() {
+            localStorage.setItem('kyokushinCounters', JSON.stringify(counters));
+        }
+
+        // Render techniques list
+        function renderTechniques() {
+            ['kicks', 'punches', 'blocks'].forEach(type => {
+                const listElement = document.getElementById(`${type}-list`);
+                listElement.innerHTML = '';
+                
+                techniques[type].forEach(technique => {
+                    const techniqueItem = document.createElement('div');
+                    techniqueItem.className = 'technique-item';
+                    
+                    const techniqueName = document.createElement('div');
+                    techniqueName.className = 'technique-name';
+                    techniqueName.textContent = technique;
+                    
+                    const counterDiv = document.createElement('div');
+                    counterDiv.className = 'counter';
+                    
+                    const decrementBtn = document.createElement('button');
+                    decrementBtn.textContent = '-';
+                    decrementBtn.onclick = () => updateCounter(type, technique, -1);
+                    
+                    const countSpan = document.createElement('span');
+                    countSpan.textContent = counters[type][technique];
+                    
+                    const incrementBtn = document.createElement('button');
+                    incrementBtn.textContent = '+';
+                    incrementBtn.onclick = () => updateCounter(type, technique, 1);
+                    
+                    counterDiv.appendChild(decrementBtn);
+                    counterDiv.appendChild(countSpan);
+                    counterDiv.appendChild(incrementBtn);
+                    
+                    techniqueItem.appendChild(techniqueName);
+                    techniqueItem.appendChild(counterDiv);
+                    
+                    listElement.appendChild(techniqueItem);
+                });
+            });
+            
+            updateStats();
+        }
+
+        // Update counter for a technique
+        function updateCounter(type, technique, change) {
+            counters[type][technique] += change;
+            if (counters[type][technique] < 0) counters[type][technique] = 0;
+            saveCounters();
+            renderTechniques();
+        }
+
+        // Add a new technique
+        function addTechnique(type, inputId) {
+            const inputElement = document.getElementById(inputId);
+            const newTechnique = inputElement.value.trim();
+            
+            if (newTechnique && !techniques[type].includes(newTechnique)) {
+                techniques[type].push(newTechnique);
+                counters[type][newTechnique] = 0;
+                saveTechniques();
+                saveCounters();
+                renderTechniques();
+                inputElement.value = '';
+            }
+        }
+
+        // Update statistics
+        function updateStats() {
+            let totalKicks = 0;
+            let totalPunches = 0;
+            let totalBlocks = 0;
+            
+            techniques.kicks.forEach(technique => {
+                totalKicks += counters.kicks[technique];
+            });
+            
+            techniques.punches.forEach(technique => {
+                totalPunches += counters.punches[technique];
+            });
+            
+            techniques.blocks.forEach(technique => {
+                totalBlocks += counters.blocks[technique];
+            });
+            
+            document.getElementById('total-kicks').textContent = totalKicks;
+            document.getElementById('total-punches').textContent = totalPunches;
+            document.getElementById('total-blocks').textContent = totalBlocks;
+            document.getElementById('total-techniques').textContent = totalKicks + totalPunches + totalBlocks;
+        }
+
+        // Reset all counters
+        function resetAllCounters() {
+            if (confirm('Are you sure you want to reset all counters? This cannot be undone.')) {
+                ['kicks', 'punches', 'blocks'].forEach(type => {
+                    techniques[type].forEach(technique => {
+                        counters[type][technique] = 0;
+                    });
+                });
+                saveCounters();
+                renderTechniques();
+            }
+        }
+
+        // Initialize the application
+        function init() {
+            initializeCounters();
+            renderTechniques();
+            
+            // Add event listeners for adding new techniques
+            document.getElementById('add-kick-btn').addEventListener('click', () => addTechnique('kicks', 'new-kick'));
+            document.getElementById('add-punch-btn').addEventListener('click', () => addTechnique('punches', 'new-punch'));
+            document.getElementById('add-block-btn').addEventListener('click', () => addTechnique('blocks', 'new-block'));
+            
+            // Add event listener for reset button
+            document.getElementById('reset-btn').addEventListener('click', resetAllCounters);
+            
+            // Allow Enter key to add techniques
+            ['new-kick', 'new-punch', 'new-block'].forEach(inputId => {
+                document.getElementById(inputId).addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        const type = inputId.split('-')[1];
+                        addTechnique(type, inputId);
+                    }
+                });
+            });
+        }
+
+        // Start the application when the page loads
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>
