@@ -3,24 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kyokushin Karate Pro Tracker</title>
+    <title>Deepthi's Karate Tracker</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         :root {
-            --primary-color: #d32f2f;
-            --primary-dark: #9a0007;
-            --primary-light: #ff6659;
-            --secondary-color: #1a237e;
-            --secondary-light: #534bae;
-            --accent-color: #ff9800;
-            --text-color: #2c3e50;
-            --light-text: #f5f5f5;
-            --border-color: #ddd;
-            --success-color: #4caf50;
-            --warning-color: #ffc107;
-            --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            --hover-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+            --primary: #1a237e;
+            --secondary: #ffc107;
+            --accent: #d32f2f;
+            --light: #f5f5f5;
+            --dark: #2c3e50;
         }
         
         * {
@@ -32,143 +23,95 @@
         
         body {
             background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            color: var(--text-color);
+            color: var(--dark);
             line-height: 1.6;
             min-height: 100vh;
+            padding: 15px;
         }
         
         .container {
-            max-width: 1400px;
+            max-width: 1200px;
             margin: 0 auto;
-            padding: 20px;
         }
         
         header {
-            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+            background: var(--primary);
             color: white;
             padding: 20px;
             border-radius: 10px;
-            margin-bottom: 30px;
-            box-shadow: var(--card-shadow);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-        
-        .header-content {
-            flex: 1;
+            margin-bottom: 20px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
         
         h1 {
-            font-size: 2.5rem;
+            font-size: 1.8rem;
             margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-        
-        .header-icon {
-            font-size: 2.2rem;
-        }
-        
-        .subtitle {
-            font-size: 1.2rem;
-            opacity: 0.9;
         }
         
         .user-info {
             display: flex;
+            justify-content: center;
             align-items: center;
             gap: 15px;
-            background: rgba(255, 255, 255, 0.2);
-            padding: 10px 15px;
-            border-radius: 50px;
+            margin-top: 10px;
+            flex-wrap: wrap;
         }
         
         .user-avatar {
-            width: 50px;
-            height: 50px;
+            width: 60px;
+            height: 60px;
             border-radius: 50%;
-            background: var(--accent-color);
+            background: var(--secondary);
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: bold;
             font-size: 1.5rem;
+            color: var(--primary);
         }
         
         .dashboard {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 25px;
-            margin-bottom: 30px;
+            grid-template-columns: 1fr;
+            gap: 20px;
         }
         
-        @media (max-width: 1100px) {
+        @media (min-width: 768px) {
             .dashboard {
-                grid-template-columns: 1fr;
+                grid-template-columns: 1fr 1fr;
             }
         }
         
         .card {
             background: white;
-            border-radius: 12px;
-            box-shadow: var(--card-shadow);
-            padding: 25px;
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-        
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--hover-shadow);
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            padding: 20px;
+            margin-bottom: 20px;
         }
         
         .card h2 {
-            margin-bottom: 20px;
-            color: var(--primary-color);
-            border-bottom: 2px solid var(--border-color);
+            color: var(--primary);
+            margin-bottom: 15px;
             padding-bottom: 10px;
+            border-bottom: 2px solid #eee;
             display: flex;
             align-items: center;
             gap: 10px;
         }
         
-        .card h2 i {
-            color: var(--secondary-color);
-        }
-        
         .technique-list {
-            max-height: 400px;
+            max-height: 300px;
             overflow-y: auto;
-            padding-right: 10px;
-        }
-        
-        .technique-list::-webkit-scrollbar {
-            width: 8px;
-        }
-        
-        .technique-list::-webkit-scrollbar-track {
-            background: #f1f1f1;
-            border-radius: 10px;
-        }
-        
-        .technique-list::-webkit-scrollbar-thumb {
-            background: var(--primary-color);
-            border-radius: 10px;
         }
         
         .technique-item {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 15px;
-            border-bottom: 1px solid var(--border-color);
-            transition: background 0.2s;
-        }
-        
-        .technique-item:hover {
-            background: #f9f9f9;
+            padding: 12px 0;
+            border-bottom: 1px solid #eee;
         }
         
         .technique-item:last-child {
@@ -177,14 +120,6 @@
         
         .technique-name {
             font-weight: 600;
-            font-size: 1.1rem;
-        }
-        
-        .technique-japanese {
-            font-size: 0.9rem;
-            color: #666;
-            font-style: italic;
-            margin-top: 3px;
         }
         
         .counter {
@@ -194,441 +129,208 @@
         }
         
         .counter button {
-            background-color: var(--primary-color);
+            background-color: var(--primary);
             color: white;
             border: none;
-            width: 35px;
-            height: 35px;
+            width: 32px;
+            height: 32px;
             border-radius: 50%;
             cursor: pointer;
-            font-weight: bold;
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: background 0.2s;
-        }
-        
-        .counter button:hover {
-            background-color: var(--primary-dark);
-        }
-        
-        .counter button:disabled {
-            background-color: #cccccc;
-            cursor: not-allowed;
         }
         
         .counter span {
-            margin: 0 5px;
-            min-width: 40px;
+            margin: 0 8px;
+            min-width: 30px;
             text-align: center;
             font-weight: bold;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
         }
         
         .add-technique {
-            margin-top: 20px;
+            margin-top: 15px;
             display: flex;
             gap: 10px;
         }
         
         .add-technique input {
-            padding: 12px 15px;
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
             flex: 1;
-            font-size: 1rem;
-            transition: border 0.3s;
-        }
-        
-        .add-technique input:focus {
-            border-color: var(--primary-color);
-            outline: none;
-            box-shadow: 0 0 0 2px rgba(211, 47, 47, 0.2);
         }
         
         .add-technique button {
-            background-color: var(--accent-color);
+            background-color: var(--accent);
             color: white;
             border: none;
-            padding: 12px 20px;
-            border-radius: 8px;
+            padding: 10px 15px;
+            border-radius: 5px;
             cursor: pointer;
-            font-weight: bold;
-            transition: background 0.2s;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        
-        .add-technique button:hover {
-            background-color: #e68900;
         }
         
         .stats {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            margin-top: 20px;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 15px;
         }
         
         .stat-card {
-            background: linear-gradient(135deg, var(--secondary-color), var(--secondary-light));
+            background: var(--primary);
             color: white;
-            border-radius: 10px;
-            box-shadow: var(--card-shadow);
-            padding: 20px;
+            border-radius: 8px;
+            padding: 15px;
             text-align: center;
-            transition: transform 0.3s;
-        }
-        
-        .stat-card:hover {
-            transform: translateY(-5px);
         }
         
         .stat-value {
-            font-size: 2.5rem;
+            font-size: 1.8rem;
             font-weight: bold;
-            margin-bottom: 5px;
         }
         
-        .stat-label {
-            font-size: 1rem;
-            opacity: 0.9;
-        }
-        
-        .reset-btn {
-            background-color: #f44336;
+        .tournament-card {
+            background: var(--primary);
             color: white;
-            border: none;
-            padding: 12px 25px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: bold;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
             margin-top: 20px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            transition: background 0.2s;
         }
         
-        .reset-btn:hover {
-            background-color: #d32f2f;
+        .countdown {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 15px 0;
+            flex-wrap: wrap;
+        }
+        
+        .countdown-item {
+            background: rgba(255,255,255,0.2);
+            padding: 10px;
+            border-radius: 8px;
+            min-width: 70px;
+        }
+        
+        .countdown-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        
+        .profile-card {
+            text-align: center;
+        }
+        
+        .profile-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin: 15px 0;
+        }
+        
+        .profile-stat {
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 8px;
+        }
+        
+        .profile-stat-value {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: var(--primary);
+        }
+        
+        .rank-progress {
+            margin-top: 15px;
+        }
+        
+        .progress-bar {
+            height: 10px;
+            background: #eee;
+            border-radius: 5px;
+            overflow: hidden;
+            margin-top: 5px;
+        }
+        
+        .progress {
+            height: 100%;
+            background: var(--secondary);
+            width: 65%;
         }
         
         .session-controls {
             display: flex;
-            gap: 15px;
-            margin-top: 20px;
+            gap: 10px;
+            margin: 15px 0;
+            flex-wrap: wrap;
         }
         
         .session-btn {
-            padding: 12px 20px;
+            padding: 10px 15px;
             border: none;
-            border-radius: 8px;
+            border-radius: 5px;
             cursor: pointer;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            transition: all 0.2s;
+            flex: 1;
+            min-width: 120px;
         }
         
         .start-btn {
-            background-color: var(--success-color);
+            background: #4caf50;
             color: white;
-        }
-        
-        .start-btn:hover {
-            background-color: #388e3c;
         }
         
         .pause-btn {
-            background-color: var(--warning-color);
-            color: black;
-        }
-        
-        .pause-btn:hover {
-            background-color: #ffb300;
-        }
-        
-        .stop-btn {
-            background-color: #f44336;
+            background: #ff9800;
             color: white;
         }
         
-        .stop-btn:hover {
-            background-color: #d32f2f;
+        .stop-btn {
+            background: #f44336;
+            color: white;
         }
         
         .timer-display {
             font-size: 1.5rem;
             font-weight: bold;
             text-align: center;
-            margin: 15px 0;
+            margin: 10px 0;
             padding: 10px;
-            background: #f5f5f5;
-            border-radius: 8px;
-        }
-        
-        .progress-container {
-            margin: 20px 0;
-        }
-        
-        .progress-bar {
-            height: 10px;
-            background-color: #e0e0e0;
+            background: #f9f9f9;
             border-radius: 5px;
-            overflow: hidden;
-        }
-        
-        .progress {
-            height: 100%;
-            background: linear-gradient(to right, var(--primary-color), var(--accent-color));
-            width: 0%;
-            transition: width 0.5s;
-        }
-        
-        .charts-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 25px;
-            margin-top: 30px;
-        }
-        
-        @media (max-width: 900px) {
-            .charts-container {
-                grid-template-columns: 1fr;
-            }
-        }
-        
-        .chart-card {
-            background: white;
-            border-radius: 12px;
-            box-shadow: var(--card-shadow);
-            padding: 25px;
-        }
-        
-        .chart-card h3 {
-            margin-bottom: 20px;
-            color: var(--secondary-color);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .goals-section {
-            margin-top: 30px;
-        }
-        
-        .goal-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px;
-            border-bottom: 1px solid var(--border-color);
-        }
-        
-        .goal-progress {
-            flex: 1;
-            margin: 0 15px;
-        }
-        
-        .goal-bar {
-            height: 10px;
-            background-color: #e0e0e0;
-            border-radius: 5px;
-            overflow: hidden;
-        }
-        
-        .goal-progress-fill {
-            height: 100%;
-            background: linear-gradient(to right, var(--primary-color), var(--accent-color));
-        }
-        
-        .export-import {
-            display: flex;
-            gap: 15px;
-            margin-top: 20px;
-        }
-        
-        .export-import button {
-            padding: 12px 20px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            transition: background 0.2s;
-        }
-        
-        .export-btn {
-            background-color: var(--success-color);
-            color: white;
-        }
-        
-        .export-btn:hover {
-            background-color: #388e3c;
-        }
-        
-        .import-btn {
-            background-color: var(--secondary-color);
-            color: white;
-        }
-        
-        .import-btn:hover {
-            background-color: var(--secondary-light);
         }
         
         footer {
             text-align: center;
-            margin-top: 40px;
+            margin-top: 30px;
             padding-top: 20px;
-            border-top: 1px solid var(--border-color);
+            border-top: 1px solid #ddd;
             color: #666;
         }
         
-        .notification {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            padding: 15px 20px;
-            background: var(--success-color);
-            color: white;
+        .motivation {
+            font-style: italic;
+            text-align: center;
+            margin: 15px 0;
+            padding: 15px;
+            background: #f9f9f9;
             border-radius: 8px;
-            box-shadow: var(--card-shadow);
-            transform: translateX(150%);
-            transition: transform 0.3s;
-            z-index: 1000;
-        }
-        
-        .notification.show {
-            transform: translateX(0);
-        }
-        
-        .badge {
-            display: inline-block;
-            padding: 3px 8px;
-            background: var(--accent-color);
-            color: white;
-            border-radius: 10px;
-            font-size: 0.8rem;
-            margin-left: 5px;
-        }
-        
-        .technique-actions {
-            display: flex;
-            gap: 5px;
-        }
-        
-        .action-btn {
-            background: none;
-            border: none;
-            cursor: pointer;
-            color: #666;
-            transition: color 0.2s;
-        }
-        
-        .action-btn:hover {
-            color: var(--primary-color);
-        }
-        
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            z-index: 2000;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .modal-content {
-            background: white;
-            border-radius: 12px;
-            padding: 30px;
-            width: 90%;
-            max-width: 500px;
-            box-shadow: var(--hover-shadow);
-        }
-        
-        .modal h3 {
-            margin-bottom: 20px;
-            color: var(--secondary-color);
-        }
-        
-        .modal-actions {
-            display: flex;
-            justify-content: flex-end;
-            gap: 15px;
-            margin-top: 25px;
-        }
-        
-        .modal-btn {
-            padding: 10px 20px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: bold;
-        }
-        
-        .cancel-btn {
-            background: #f5f5f5;
-            color: #333;
-        }
-        
-        .confirm-btn {
-            background: var(--primary-color);
-            color: white;
-        }
-        
-        .rank-display {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-top: 10px;
-        }
-        
-        .rank-icon {
-            font-size: 2rem;
-            color: var(--accent-color);
-        }
-        
-        .rank-info h4 {
-            margin-bottom: 5px;
-        }
-        
-        .rank-progress {
-            width: 100%;
-            height: 8px;
-            background: #e0e0e0;
-            border-radius: 4px;
-            margin-top: 5px;
-        }
-        
-        .rank-progress-fill {
-            height: 100%;
-            background: linear-gradient(to right, var(--primary-color), var(--accent-color));
-            border-radius: 4px;
+            border-left: 4px solid var(--secondary);
         }
     </style>
 </head>
 <body>
     <div class="container">
         <header>
-            <div class="header-content">
-                <h1><i class="fas fa-fist-raised header-icon"></i> Kyokushin Karate Pro Tracker</h1>
-                <p class="subtitle">Advanced training analytics and technique tracking</p>
-            </div>
+            <h1><i class="fas fa-fist-raised"></i> Deepthi's Karate Tracker</h1>
+            <p>International Shitoku-Kai Karate - Sri Lanka | OSU!</p>
             <div class="user-info">
-                <div class="user-avatar">KK</div>
+                <div class="user-avatar">D</div>
                 <div>
-                    <div class="user-name">Karateka</div>
-                    <div class="user-rank">5th Kyu <i class="fas fa-medal"></i></div>
+                    <div>Deepthi | Blue Belt</div>
+                    <div>Next: Yellow Belt</div>
                 </div>
             </div>
         </header>
@@ -637,210 +339,167 @@
             <div class="card">
                 <h2><i class="fas fa-shoe-prints"></i> Kicks</h2>
                 <div class="technique-list" id="kicks-list">
-                    <!-- Kicks will be populated by JavaScript -->
+                    <!-- Kicks populated by JS -->
                 </div>
                 <div class="add-technique">
-                    <input type="text" id="new-kick" placeholder="Add new kick technique">
-                    <button id="add-kick-btn"><i class="fas fa-plus"></i> Add</button>
+                    <input type="text" id="new-kick" placeholder="Add new kick">
+                    <button id="add-kick-btn">Add</button>
                 </div>
             </div>
             
             <div class="card">
                 <h2><i class="fas fa-hand-rock"></i> Punches</h2>
                 <div class="technique-list" id="punches-list">
-                    <!-- Punches will be populated by JavaScript -->
+                    <!-- Punches populated by JS -->
                 </div>
                 <div class="add-technique">
-                    <input type="text" id="new-punch" placeholder="Add new punch technique">
-                    <button id="add-punch-btn"><i class="fas fa-plus"></i> Add</button>
+                    <input type="text" id="new-punch" placeholder="Add new punch">
+                    <button id="add-punch-btn">Add</button>
                 </div>
             </div>
             
             <div class="card">
                 <h2><i class="fas fa-shield-alt"></i> Blocks</h2>
                 <div class="technique-list" id="blocks-list">
-                    <!-- Blocks will be populated by JavaScript -->
+                    <!-- Blocks populated by JS -->
                 </div>
                 <div class="add-technique">
-                    <input type="text" id="new-block" placeholder="Add new block technique">
-                    <button id="add-block-btn"><i class="fas fa-plus"></i> Add</button>
+                    <input type="text" id="new-block" placeholder="Add new block">
+                    <button id="add-block-btn">Add</button>
                 </div>
             </div>
             
             <div class="card">
-                <h2><i class="fas fa-chart-line"></i> Training Analytics</h2>
+                <h2><i class="fas fa-chart-line"></i> Training Stats</h2>
                 <div class="stats">
                     <div class="stat-card">
                         <div class="stat-value" id="total-kicks">0</div>
-                        <div class="stat-label">Total Kicks</div>
+                        <div>Total Kicks</div>
                     </div>
                     <div class="stat-card">
                         <div class="stat-value" id="total-punches">0</div>
-                        <div class="stat-label">Total Punches</div>
+                        <div>Total Punches</div>
                     </div>
                     <div class="stat-card">
                         <div class="stat-value" id="total-blocks">0</div>
-                        <div class="stat-label">Total Blocks</div>
+                        <div>Total Blocks</div>
                     </div>
                     <div class="stat-card">
                         <div class="stat-value" id="total-techniques">0</div>
-                        <div class="stat-label">All Techniques</div>
+                        <div>All Techniques</div>
                     </div>
                 </div>
                 
                 <div class="session-controls">
-                    <button class="session-btn start-btn" id="start-session"><i class="fas fa-play"></i> Start Session</button>
-                    <button class="session-btn pause-btn" id="pause-session" disabled><i class="fas fa-pause"></i> Pause</button>
-                    <button class="session-btn stop-btn" id="stop-session" disabled><i class="fas fa-stop"></i> End Session</button>
+                    <button class="session-btn start-btn" id="start-session">
+                        <i class="fas fa-play"></i> Start
+                    </button>
+                    <button class="session-btn pause-btn" id="pause-session" disabled>
+                        <i class="fas fa-pause"></i> Pause
+                    </button>
+                    <button class="session-btn stop-btn" id="stop-session" disabled>
+                        <i class="fas fa-stop"></i> Stop
+                    </button>
                 </div>
                 
                 <div class="timer-display" id="timer">00:00:00</div>
-                
-                <div class="progress-container">
-                    <div class="progress-bar">
-                        <div class="progress" id="session-progress"></div>
-                    </div>
+            </div>
+        </div>
+        
+        <div class="tournament-card">
+            <h2><i class="fas fa-trophy"></i> Tournament Countdown</h2>
+            <p>November 29, 2025 - Prepare Well!</p>
+            <div class="countdown" id="countdown">
+                <div class="countdown-item">
+                    <div class="countdown-value" id="days">00</div>
+                    <div>Days</div>
                 </div>
-                
-                <button class="reset-btn" id="reset-btn"><i class="fas fa-redo"></i> Reset All Counters</button>
-            </div>
-        </div>
-        
-        <div class="charts-container">
-            <div class="chart-card">
-                <h3><i class="fas fa-chart-pie"></i> Technique Distribution</h3>
-                <canvas id="techniqueChart"></canvas>
-            </div>
-            <div class="chart-card">
-                <h3><i class="fas fa-chart-bar"></i> Weekly Progress</h3>
-                <canvas id="progressChart"></canvas>
-            </div>
-        </div>
-        
-        <div class="card goals-section">
-            <h2><i class="fas fa-bullseye"></i> Training Goals</h2>
-            <div id="goals-list">
-                <!-- Goals will be populated by JavaScript -->
-            </div>
-            <div class="add-technique">
-                <input type="text" id="new-goal" placeholder="Add new training goal">
-                <button id="add-goal-btn"><i class="fas fa-plus"></i> Add Goal</button>
-            </div>
-        </div>
-        
-        <div class="card">
-            <h2><i class="fas fa-trophy"></i> Rank Progression</h2>
-            <div class="rank-display">
-                <div class="rank-icon">
-                    <i class="fas fa-medal"></i>
+                <div class="countdown-item">
+                    <div class="countdown-value" id="hours">00</div>
+                    <div>Hours</div>
                 </div>
-                <div class="rank-info">
-                    <h4>5th Kyu</h4>
-                    <p>Progress to next rank: 4th Kyu</p>
-                    <div class="rank-progress">
-                        <div class="rank-progress-fill" style="width: 45%"></div>
-                    </div>
+                <div class="countdown-item">
+                    <div class="countdown-value" id="minutes">00</div>
+                    <div>Minutes</div>
+                </div>
+                <div class="countdown-item">
+                    <div class="countdown-value" id="seconds">00</div>
+                    <div>Seconds</div>
                 </div>
             </div>
         </div>
         
-        <div class="export-import">
-            <button class="export-btn" id="export-data"><i class="fas fa-file-export"></i> Export Data</button>
-            <button class="import-btn" id="import-data"><i class="fas fa-file-import"></i> Import Data</button>
+        <div class="card profile-card">
+            <h2><i class="fas fa-user"></i> Deepthi's Profile</h2>
+            <div class="profile-stats">
+                <div class="profile-stat">
+                    <div class="profile-stat-value">5'2"</div>
+                    <div>Height</div>
+                </div>
+                <div class="profile-stat">
+                    <div class="profile-stat-value">40kg</div>
+                    <div>Weight</div>
+                </div>
+                <div class="profile-stat">
+                    <div class="profile-stat-value">Blue</div>
+                    <div>Current Belt</div>
+                </div>
+                <div class="profile-stat">
+                    <div class="profile-stat-value">Yellow</div>
+                    <div>Next Belt</div>
+                </div>
+            </div>
+            
+            <div class="rank-progress">
+                <div>Progress to Yellow Belt: 65%</div>
+                <div class="progress-bar">
+                    <div class="progress"></div>
+                </div>
+            </div>
+            
+            <div class="motivation">
+                "The ultimate aim of karate lies not in victory or defeat, but in the perfection of the character of its participants." - Gichin Funakoshi
+            </div>
         </div>
         
         <footer>
-            <p>Kyokushin Karate Pro Tracker &copy; 2023 | OSU!</p>
+            <p>International Shitoku-Kai Karate - Sri Lanka &copy; 2022 | OSU!</p>
         </footer>
     </div>
 
-    <div class="notification" id="notification">
-        <span id="notification-text">Operation completed successfully!</span>
-    </div>
-
-    <div class="modal" id="reset-modal">
-        <div class="modal-content">
-            <h3>Reset All Data</h3>
-            <p>Are you sure you want to reset all counters and training data? This action cannot be undone.</p>
-            <div class="modal-actions">
-                <button class="modal-btn cancel-btn" id="cancel-reset">Cancel</button>
-                <button class="modal-btn confirm-btn" id="confirm-reset">Reset All Data</button>
-            </div>
-        </div>
-    </div>
-
     <script>
-        // Enhanced Kyokushin techniques with Japanese names
+        // Default techniques
         const defaultTechniques = {
             kicks: [
                 { name: "Mae Geri", english: "Front Kick" },
                 { name: "Mawashi Geri", english: "Roundhouse Kick" },
-                { name: "Yoko Geri", english: "Side Kick" },
-                { name: "Ushiro Geri", english: "Back Kick" },
-                { name: "Kansetsu Geri", english: "Low Kick" },
-                { name: "Kakato Geri", english: "Axe Kick" },
-                { name: "Ura Mawashi Geri", english: "Hook Kick" },
-                { name: "Hiza Geri", english: "Knee Strike" }
+                { name: "Yoko Geri", english: "Side Kick" }
             ],
             punches: [
                 { name: "Oi Zuki", english: "Lunge Punch" },
                 { name: "Gyaku Zuki", english: "Reverse Punch" },
-                { name: "Kizami Zuki", english: "Jab" },
-                { name: "Age Zuki", english: "Rising Punch" },
-                { name: "Yoko Zuki", english: "Side Punch" },
-                { name: "Uraken Uchi", english: "Backfist Strike" },
-                { name: "Tate Zuki", english: "Vertical Punch" },
-                { name: "Kagi Zuki", english: "Hook Punch" }
+                { name: "Kizami Zuki", english: "Jab" }
             ],
             blocks: [
                 { name: "Age Uke", english: "Rising Block" },
                 { name: "Soto Uke", english: "Outside Block" },
-                { name: "Uchi Uke", english: "Inside Block" },
-                { name: "Gedan Barai", english: "Downward Block" },
-                { name: "Shuto Uke", english: "Knife Hand Block" },
-                { name: "Kake Uke", english: "Hook Block" },
-                { name: "Morote Uke", english: "Augmented Block" },
-                { name: "Juji Uke", english: "X Block" }
+                { name: "Gedan Barai", english: "Downward Block" }
             ]
         };
 
-        // Training goals
-        const defaultGoals = [
-            { name: "Complete 1000 kicks this month", target: 1000, current: 350, type: "kicks" },
-            { name: "Master Gyaku Zuki form", target: 1, current: 0.7, type: "punches" },
-            { name: "Practice blocks for 30 minutes daily", target: 30, current: 15, type: "blocks" }
-        ];
-
-        // Rank progression system
-        const ranks = [
-            { name: "10th Kyu", requiredPoints: 0 },
-            { name: "9th Kyu", requiredPoints: 100 },
-            { name: "8th Kyu", requiredPoints: 250 },
-            { name: "7th Kyu", requiredPoints: 500 },
-            { name: "6th Kyu", requiredPoints: 1000 },
-            { name: "5th Kyu", requiredPoints: 1500 },
-            { name: "4th Kyu", requiredPoints: 2500 },
-            { name: "3rd Kyu", requiredPoints: 4000 },
-            { name: "2nd Kyu", requiredPoints: 6000 },
-            { name: "1st Kyu", requiredPoints: 8000 },
-            { name: "1st Dan", requiredPoints: 10000 }
-        ];
-
-        // Load data from localStorage or use defaults
-        let techniques = JSON.parse(localStorage.getItem('kyokushinTechniques')) || defaultTechniques;
-        let counters = JSON.parse(localStorage.getItem('kyokushinCounters')) || {
+        // Load from localStorage or use defaults
+        let techniques = JSON.parse(localStorage.getItem('karateTechniques')) || defaultTechniques;
+        let counters = JSON.parse(localStorage.getItem('karateCounters')) || {
             kicks: {},
             punches: {},
             blocks: {}
         };
-        let goals = JSON.parse(localStorage.getItem('kyokushinGoals')) || defaultGoals;
-        let trainingHistory = JSON.parse(localStorage.getItem('kyokushinHistory')) || [];
+        
         let sessionActive = false;
-        let sessionStartTime = null;
         let sessionTimer = null;
         let sessionSeconds = 0;
 
-        // Initialize counters for any new techniques
+        // Initialize counters
         function initializeCounters() {
             ['kicks', 'punches', 'blocks'].forEach(type => {
                 techniques[type].forEach(technique => {
@@ -853,40 +512,16 @@
             saveCounters();
         }
 
-        // Save techniques to localStorage
-        function saveTechniques() {
-            localStorage.setItem('kyokushinTechniques', JSON.stringify(techniques));
-        }
-
-        // Save counters to localStorage
+        // Save to localStorage
         function saveCounters() {
-            localStorage.setItem('kyokushinCounters', JSON.stringify(counters));
+            localStorage.setItem('karateCounters', JSON.stringify(counters));
         }
 
-        // Save goals to localStorage
-        function saveGoals() {
-            localStorage.setItem('kyokushinGoals', JSON.stringify(goals));
+        function saveTechniques() {
+            localStorage.setItem('karateTechniques', JSON.stringify(techniques));
         }
 
-        // Save training history
-        function saveHistory() {
-            localStorage.setItem('kyokushinHistory', JSON.stringify(trainingHistory));
-        }
-
-        // Show notification
-        function showNotification(message, duration = 3000) {
-            const notification = document.getElementById('notification');
-            const notificationText = document.getElementById('notification-text');
-            
-            notificationText.textContent = message;
-            notification.classList.add('show');
-            
-            setTimeout(() => {
-                notification.classList.remove('show');
-            }, duration);
-        }
-
-        // Render techniques list
+        // Render techniques
         function renderTechniques() {
             ['kicks', 'punches', 'blocks'].forEach(type => {
                 const listElement = document.getElementById(`${type}-list`);
@@ -896,150 +531,50 @@
                     const key = `${technique.name}|${technique.english}`;
                     const count = counters[type][key] || 0;
                     
-                    const techniqueItem = document.createElement('div');
-                    techniqueItem.className = 'technique-item';
+                    const item = document.createElement('div');
+                    item.className = 'technique-item';
                     
-                    const techniqueInfo = document.createElement('div');
-                    
-                    const techniqueName = document.createElement('div');
-                    techniqueName.className = 'technique-name';
-                    techniqueName.textContent = technique.english;
-                    
-                    const techniqueJapanese = document.createElement('div');
-                    techniqueJapanese.className = 'technique-japanese';
-                    techniqueJapanese.textContent = technique.name;
-                    
-                    techniqueInfo.appendChild(techniqueName);
-                    techniqueInfo.appendChild(techniqueJapanese);
+                    const nameDiv = document.createElement('div');
+                    nameDiv.innerHTML = `
+                        <div class="technique-name">${technique.english}</div>
+                        <div style="font-size:0.8rem; color:#666">${technique.name}</div>
+                    `;
                     
                     const counterDiv = document.createElement('div');
                     counterDiv.className = 'counter';
                     
-                    const decrementBtn = document.createElement('button');
-                    decrementBtn.innerHTML = '<i class="fas fa-minus"></i>';
-                    decrementBtn.onclick = () => updateCounter(type, key, -1);
-                    if (count <= 0) decrementBtn.disabled = true;
+                    const minusBtn = document.createElement('button');
+                    minusBtn.innerHTML = '<i class="fas fa-minus"></i>';
+                    minusBtn.onclick = () => updateCounter(type, key, -1);
+                    if (count <= 0) minusBtn.disabled = true;
                     
                     const countSpan = document.createElement('span');
                     countSpan.textContent = count;
                     
-                    const incrementBtn = document.createElement('button');
-                    incrementBtn.innerHTML = '<i class="fas fa-plus"></i>';
-                    incrementBtn.onclick = () => updateCounter(type, key, 1);
+                    const plusBtn = document.createElement('button');
+                    plusBtn.innerHTML = '<i class="fas fa-plus"></i>';
+                    plusBtn.onclick = () => updateCounter(type, key, 1);
                     
-                    counterDiv.appendChild(decrementBtn);
+                    counterDiv.appendChild(minusBtn);
                     counterDiv.appendChild(countSpan);
-                    counterDiv.appendChild(incrementBtn);
+                    counterDiv.appendChild(plusBtn);
                     
-                    const actionsDiv = document.createElement('div');
-                    actionsDiv.className = 'technique-actions';
+                    item.appendChild(nameDiv);
+                    item.appendChild(counterDiv);
                     
-                    const deleteBtn = document.createElement('button');
-                    deleteBtn.className = 'action-btn';
-                    deleteBtn.innerHTML = '<i class="fas fa-trash"></i>';
-                    deleteBtn.title = 'Delete technique';
-                    deleteBtn.onclick = () => deleteTechnique(type, key);
-                    
-                    actionsDiv.appendChild(deleteBtn);
-                    
-                    techniqueItem.appendChild(techniqueInfo);
-                    techniqueItem.appendChild(counterDiv);
-                    techniqueItem.appendChild(actionsDiv);
-                    
-                    listElement.appendChild(techniqueItem);
+                    listElement.appendChild(item);
                 });
             });
             
             updateStats();
-            updateCharts();
-            updateGoals();
         }
 
-        // Update counter for a technique
+        // Update counter
         function updateCounter(type, key, change) {
             counters[type][key] += change;
             if (counters[type][key] < 0) counters[type][key] = 0;
-            
-            // Record in training history if session is active
-            if (sessionActive && change > 0) {
-                const now = new Date();
-                trainingHistory.push({
-                    type: type,
-                    technique: key,
-                    timestamp: now.getTime(),
-                    date: now.toISOString().split('T')[0]
-                });
-                saveHistory();
-            }
-            
             saveCounters();
             renderTechniques();
-            
-            if (change > 0) {
-                showNotification(`${type.slice(0, -1)} counter updated!`);
-            }
-        }
-
-        // Add a new technique
-        function addTechnique(type, inputId) {
-            const inputElement = document.getElementById(inputId);
-            const newTechnique = inputElement.value.trim();
-            
-            if (newTechnique) {
-                // Check if it's in "Japanese (English)" format
-                let japaneseName, englishName;
-                
-                if (newTechnique.includes('(') && newTechnique.includes(')')) {
-                    const parts = newTechnique.split('(');
-                    japaneseName = parts[0].trim();
-                    englishName = parts[1].replace(')', '').trim();
-                } else {
-                    japaneseName = newTechnique;
-                    englishName = newTechnique;
-                }
-                
-                const key = `${japaneseName}|${englishName}`;
-                
-                // Check if technique already exists
-                const exists = techniques[type].some(t => 
-                    `${t.name}|${t.english}` === key
-                );
-                
-                if (!exists) {
-                    techniques[type].push({
-                        name: japaneseName,
-                        english: englishName
-                    });
-                    
-                    counters[type][key] = 0;
-                    
-                    saveTechniques();
-                    saveCounters();
-                    renderTechniques();
-                    inputElement.value = '';
-                    
-                    showNotification(`New ${type.slice(0, -1)} added: ${englishName}`);
-                } else {
-                    showNotification('Technique already exists!', 2000);
-                }
-            }
-        }
-
-        // Delete a technique
-        function deleteTechnique(type, key) {
-            if (confirm('Are you sure you want to delete this technique?')) {
-                techniques[type] = techniques[type].filter(t => 
-                    `${t.name}|${t.english}` !== key
-                );
-                
-                delete counters[type][key];
-                
-                saveTechniques();
-                saveCounters();
-                renderTechniques();
-                
-                showNotification('Technique deleted');
-            }
         }
 
         // Update statistics
@@ -1069,201 +604,47 @@
             document.getElementById('total-techniques').textContent = totalKicks + totalPunches + totalBlocks;
         }
 
-        // Update charts
-        function updateCharts() {
-            // Technique distribution chart
-            const techniqueCtx = document.getElementById('techniqueChart').getContext('2d');
+        // Add technique
+        function addTechnique(type, inputId) {
+            const input = document.getElementById(inputId);
+            const name = input.value.trim();
             
-            let kickCount = 0;
-            let punchCount = 0;
-            let blockCount = 0;
-            
-            techniques.kicks.forEach(technique => {
-                const key = `${technique.name}|${technique.english}`;
-                kickCount += counters.kicks[key];
-            });
-            
-            techniques.punches.forEach(technique => {
-                const key = `${technique.name}|${technique.english}`;
-                punchCount += counters.punches[key];
-            });
-            
-            techniques.blocks.forEach(technique => {
-                const key = `${technique.name}|${technique.english}`;
-                blockCount += counters.blocks[key];
-            });
-            
-            if (window.techniqueChart instanceof Chart) {
-                window.techniqueChart.destroy();
-            }
-            
-            window.techniqueChart = new Chart(techniqueCtx, {
-                type: 'doughnut',
-                data: {
-                    labels: ['Kicks', 'Punches', 'Blocks'],
-                    datasets: [{
-                        data: [kickCount, punchCount, blockCount],
-                        backgroundColor: [
-                            '#d32f2f',
-                            '#1a237e',
-                            '#ff9800'
-                        ],
-                        borderWidth: 2,
-                        borderColor: '#fff'
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    plugins: {
-                        legend: {
-                            position: 'bottom'
-                        }
-                    }
-                }
-            });
-            
-            // Weekly progress chart
-            const progressCtx = document.getElementById('progressChart').getContext('2d');
-            
-            // Generate sample weekly data (in a real app, this would come from trainingHistory)
-            const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
-            const weeklyData = days.map(() => Math.floor(Math.random() * 100) + 20);
-            
-            if (window.progressChart instanceof Chart) {
-                window.progressChart.destroy();
-            }
-            
-            window.progressChart = new Chart(progressCtx, {
-                type: 'bar',
-                data: {
-                    labels: days,
-                    datasets: [{
-                        label: 'Techniques Practiced',
-                        data: weeklyData,
-                        backgroundColor: '#1a237e',
-                        borderColor: '#0d1475',
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    scales: {
-                        y: {
-                            beginAtZero: true
-                        }
-                    }
-                }
-            });
-        }
-
-        // Update goals
-        function updateGoals() {
-            const goalsList = document.getElementById('goals-list');
-            goalsList.innerHTML = '';
-            
-            goals.forEach((goal, index) => {
-                const goalItem = document.createElement('div');
-                goalItem.className = 'goal-item';
-                
-                const goalName = document.createElement('div');
-                goalName.textContent = goal.name;
-                
-                const goalProgress = document.createElement('div');
-                goalProgress.className = 'goal-progress';
-                
-                const progressText = document.createElement('div');
-                progressText.style.marginBottom = '5px';
-                progressText.style.fontSize = '0.9rem';
-                
-                const percentage = Math.min(100, Math.round((goal.current / goal.target) * 100));
-                progressText.textContent = `${goal.current} / ${goal.target} (${percentage}%)`;
-                
-                const goalBar = document.createElement('div');
-                goalBar.className = 'goal-bar';
-                
-                const goalProgressFill = document.createElement('div');
-                goalProgressFill.className = 'goal-progress-fill';
-                goalProgressFill.style.width = `${percentage}%`;
-                
-                goalBar.appendChild(goalProgressFill);
-                goalProgress.appendChild(progressText);
-                goalProgress.appendChild(goalBar);
-                
-                const goalActions = document.createElement('div');
-                goalActions.className = 'technique-actions';
-                
-                const updateBtn = document.createElement('button');
-                updateBtn.className = 'action-btn';
-                updateBtn.innerHTML = '<i class="fas fa-edit"></i>';
-                updateBtn.title = 'Update goal progress';
-                updateBtn.onclick = () => updateGoalProgress(index);
-                
-                const deleteBtn = document.createElement('button');
-                deleteBtn.className = 'action-btn';
-                deleteBtn.innerHTML = '<i class="fas fa-trash"></i>';
-                deleteBtn.title = 'Delete goal';
-                deleteBtn.onclick = () => deleteGoal(index);
-                
-                goalActions.appendChild(updateBtn);
-                goalActions.appendChild(deleteBtn);
-                
-                goalItem.appendChild(goalName);
-                goalItem.appendChild(goalProgress);
-                goalItem.appendChild(goalActions);
-                
-                goalsList.appendChild(goalItem);
-            });
-        }
-
-        // Update goal progress
-        function updateGoalProgress(index) {
-            const newProgress = prompt(`Update progress for "${goals[index].name}" (current: ${goals[index].current}, target: ${goals[index].target}):`, goals[index].current);
-            
-            if (newProgress !== null) {
-                const progressValue = parseFloat(newProgress);
-                if (!isNaN(progressValue)) {
-                    goals[index].current = progressValue;
-                    saveGoals();
-                    updateGoals();
-                    showNotification('Goal progress updated');
-                }
-            }
-        }
-
-        // Delete goal
-        function deleteGoal(index) {
-            if (confirm('Are you sure you want to delete this goal?')) {
-                goals.splice(index, 1);
-                saveGoals();
-                updateGoals();
-                showNotification('Goal deleted');
-            }
-        }
-
-        // Add new goal
-        function addGoal() {
-            const inputElement = document.getElementById('new-goal');
-            const goalText = inputElement.value.trim();
-            
-            if (goalText) {
-                goals.push({
-                    name: goalText,
-                    target: 100,
-                    current: 0,
-                    type: 'general'
+            if (name) {
+                techniques[type].push({
+                    name: name,
+                    english: name
                 });
                 
-                saveGoals();
-                updateGoals();
-                inputElement.value = '';
-                showNotification('New goal added');
+                const key = `${name}|${name}`;
+                counters[type][key] = 0;
+                
+                saveTechniques();
+                saveCounters();
+                renderTechniques();
+                input.value = '';
             }
+        }
+
+        // Tournament countdown
+        function updateCountdown() {
+            const tournamentDate = new Date('November 29, 2025 00:00:00').getTime();
+            const now = new Date().getTime();
+            const distance = tournamentDate - now;
+            
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            
+            document.getElementById('days').textContent = days.toString().padStart(2, '0');
+            document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+            document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+            document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
         }
 
         // Session timer functions
         function startSession() {
             sessionActive = true;
-            sessionStartTime = new Date();
             sessionSeconds = 0;
             
             document.getElementById('start-session').disabled = true;
@@ -1273,13 +654,7 @@
             sessionTimer = setInterval(() => {
                 sessionSeconds++;
                 updateTimerDisplay();
-                
-                // Update progress bar (assuming 1 hour session)
-                const progressPercent = Math.min(100, (sessionSeconds / 3600) * 100);
-                document.getElementById('session-progress').style.width = `${progressPercent}%`;
             }, 1000);
-            
-            showNotification('Training session started!');
         }
 
         function pauseSession() {
@@ -1291,11 +666,7 @@
                 sessionTimer = setInterval(() => {
                     sessionSeconds++;
                     updateTimerDisplay();
-                    
-                    const progressPercent = Math.min(100, (sessionSeconds / 3600) * 100);
-                    document.getElementById('session-progress').style.width = `${progressPercent}%`;
                 }, 1000);
-                
                 document.getElementById('pause-session').innerHTML = '<i class="fas fa-pause"></i> Pause';
                 sessionActive = true;
             }
@@ -1310,22 +681,8 @@
             document.getElementById('stop-session').disabled = true;
             document.getElementById('pause-session').innerHTML = '<i class="fas fa-pause"></i> Pause';
             
-            // Save session data
-            const sessionData = {
-                date: new Date().toISOString(),
-                duration: sessionSeconds,
-                techniques: JSON.parse(JSON.stringify(counters)) // Deep copy
-            };
-            
-            trainingHistory.push(sessionData);
-            saveHistory();
-            
-            showNotification(`Session completed! Duration: ${formatTime(sessionSeconds)}`);
-            
-            // Reset timer and progress
             sessionSeconds = 0;
             updateTimerDisplay();
-            document.getElementById('session-progress').style.width = '0%';
         }
 
         function updateTimerDisplay() {
@@ -1337,160 +694,38 @@
                 `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
         }
 
-        function formatTime(seconds) {
-            const hours = Math.floor(seconds / 3600);
-            const minutes = Math.floor((seconds % 3600) / 60);
-            const secs = seconds % 60;
-            
-            if (hours > 0) {
-                return `${hours}h ${minutes}m ${secs}s`;
-            } else if (minutes > 0) {
-                return `${minutes}m ${secs}s`;
-            } else {
-                return `${secs}s`;
-            }
-        }
-
-        // Export data
-        function exportData() {
-            const data = {
-                techniques: techniques,
-                counters: counters,
-                goals: goals,
-                trainingHistory: trainingHistory,
-                exportDate: new Date().toISOString()
-            };
-            
-            const dataStr = JSON.stringify(data, null, 2);
-            const dataBlob = new Blob([dataStr], {type: 'application/json'});
-            
-            const url = URL.createObjectURL(dataBlob);
-            const link = document.createElement('a');
-            link.href = url;
-            link.download = `kyokushin-data-${new Date().toISOString().split('T')[0]}.json`;
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-            
-            showNotification('Data exported successfully');
-        }
-
-        // Import data
-        function importData() {
-            const input = document.createElement('input');
-            input.type = 'file';
-            input.accept = '.json';
-            
-            input.onchange = e => {
-                const file = e.target.files[0];
-                const reader = new FileReader();
-                
-                reader.onload = event => {
-                    try {
-                        const data = JSON.parse(event.target.result);
-                        
-                        if (data.techniques && data.counters) {
-                            techniques = data.techniques;
-                            counters = data.counters;
-                            goals = data.goals || goals;
-                            trainingHistory = data.trainingHistory || trainingHistory;
-                            
-                            saveTechniques();
-                            saveCounters();
-                            saveGoals();
-                            saveHistory();
-                            
-                            renderTechniques();
-                            showNotification('Data imported successfully');
-                        } else {
-                            showNotification('Invalid data file', 3000);
-                        }
-                    } catch (error) {
-                        showNotification('Error importing data', 3000);
-                        console.error(error);
-                    }
-                };
-                
-                reader.readAsText(file);
-            };
-            
-            input.click();
-        }
-
-        // Reset all data
-        function resetAllData() {
-            document.getElementById('reset-modal').style.display = 'flex';
-        }
-
-        function confirmReset() {
-            techniques = JSON.parse(JSON.stringify(defaultTechniques));
-            counters = {
-                kicks: {},
-                punches: {},
-                blocks: {}
-            };
-            goals = JSON.parse(JSON.stringify(defaultGoals));
-            trainingHistory = [];
-            
-            saveTechniques();
-            saveCounters();
-            saveGoals();
-            saveHistory();
-            
-            renderTechniques();
-            
-            document.getElementById('reset-modal').style.display = 'none';
-            showNotification('All data has been reset');
-        }
-
-        function cancelReset() {
-            document.getElementById('reset-modal').style.display = 'none';
-        }
-
-        // Initialize the application
+        // Initialize app
         function init() {
             initializeCounters();
             renderTechniques();
+            updateCountdown();
             
-            // Add event listeners for adding new techniques
+            // Update countdown every second
+            setInterval(updateCountdown, 1000);
+            
+            // Event listeners
             document.getElementById('add-kick-btn').addEventListener('click', () => addTechnique('kicks', 'new-kick'));
             document.getElementById('add-punch-btn').addEventListener('click', () => addTechnique('punches', 'new-punch'));
             document.getElementById('add-block-btn').addEventListener('click', () => addTechnique('blocks', 'new-block'));
-            document.getElementById('add-goal-btn').addEventListener('click', addGoal);
             
-            // Add event listeners for session controls
             document.getElementById('start-session').addEventListener('click', startSession);
             document.getElementById('pause-session').addEventListener('click', pauseSession);
             document.getElementById('stop-session').addEventListener('click', stopSession);
             
-            // Add event listeners for export/import
-            document.getElementById('export-data').addEventListener('click', exportData);
-            document.getElementById('import-data').addEventListener('click', importData);
-            
-            // Add event listeners for reset
-            document.getElementById('reset-btn').addEventListener('click', resetAllData);
-            document.getElementById('confirm-reset').addEventListener('click', confirmReset);
-            document.getElementById('cancel-reset').addEventListener('click', cancelReset);
-            
-            // Allow Enter key to add techniques and goals
-            ['new-kick', 'new-punch', 'new-block', 'new-goal'].forEach(inputId => {
-                document.getElementById(inputId).addEventListener('keypress', function(e) {
+            // Enter key support
+            ['new-kick', 'new-punch', 'new-block'].forEach(id => {
+                document.getElementById(id).addEventListener('keypress', function(e) {
                     if (e.key === 'Enter') {
-                        if (inputId === 'new-goal') {
-                            addGoal();
-                        } else {
-                            const type = inputId.split('-')[1];
-                            addTechnique(type, inputId);
-                        }
+                        const type = id.split('-')[1];
+                        addTechnique(type, id);
                     }
                 });
             });
             
-            // Initialize timer display
             updateTimerDisplay();
         }
 
-        // Start the application when the page loads
+        // Start when page loads
         document.addEventListener('DOMContentLoaded', init);
     </script>
 </body>
